@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary " data-bs-theme="dark">
+            <div class="container-fluid">
+                <a class="navbar-brand text-danger" href="http://localhost:3000">Expense Tracker</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="http://localhost:3000">Home</a>
+                        </li>
+
+                    </ul>
+                    <div class="navbar-nav"> <label for="profile" class="text-light nav-item ">Hello &nbsp; &nbsp;</label><label id="profile"
+                            class="text-light"></label></div>
+                    <div class="navbar-nav">
+                        <button class="btn btn-success mx-4 nav-item" id="subcription">Subscription</button>
+                        <button class="btn btn-success mx-4 nav-item" id="premium" disabled>Premium</button>
+
+                        <button id="logout" class="btn btn-danger nav-item">logout</button>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+
+    </div>
+    <div id="addexpense" class="my-3 mx-3 ">
+        <div class="row text-center">
+            <form id="addexpense">
+                <div class="  m-1 my-2 p-1">
+                    <label for="amount" class="text-center">Choose expenseamount:</label>&nbsp;&nbsp;
+                    <input type="text" class="mx-2 my-3 p-2 rounded-3" name="amount" id="amount">&nbsp;&nbsp;
+                </div>
+                <div class=" m-1 my-2 p-1">
+                    <label for="description">Description:</label>&nbsp;&nbsp;
+                    <input type="text" name="description" class="mx-2 p-2 rounded-3" id="description">&nbsp;&nbsp;
+                </div>
+                <div class="  m-1 my-1 p-1">
+                    <label for="category">category:</label>&nbsp;
+
+                    <select name="category" id="category">
+                     <option value="movie">movie</option>
+                     <option value="food">food</option>
+                     <option value="fuel">fuel</option>
+                    </select>
+                    <label for="category" id="ai" class="me-3 btn btn-light btn-outline-primary">help ai</label>
+                </div>
+
+                <div class=" m-1 p-1"> <button type="submit" class="btn btn-success">Success</button></div>
+            </form>
+        </div>
+    </div>
+    <div class="container min-w-5 d-flex justify-content-center text-danger" id="error"></div>
+    <div class="container border  d-flex flex-column justify-content-center" id="expense_list_page">
+        <div class="container">
+            <label for="limit">Number of Expense per page</label>
+            <select name="limit" id="limit">
+                
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+            </select>
+        </div>
+        <div id="expense_list" class="p-3"></div>
+        <div id="page_btn" class="p-3"> <button id="pre" class="btn btn-outline-success">Previous</button>
+            <label class="btn">
+                <h3 id="0">0</h3>
+            </label>
+            <label id="1" class="btn">1</label>
+
+            <button id="next" class="btn btn-outline-success">Next</button>
+        </div>
+    </div>
+    <div class="container p-2 d-flex " id="features"></div>
+    
+    <div id="features_content" class="ms-6 p-6 my-3"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+    <script src="/js/index.js"></script>
+    <script src="/js/features.js"></script>
+</body>
+
+</html>
