@@ -3,12 +3,11 @@ const Subcription = require("../models/subscription");
 const Expense = require("../models/expense");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
-const { Json } = require("sequelize/lib/utils");
+
 const Report = require("../models/report");
 const { Op } = require("sequelize");
+const { upload } = require("../services/s3");
 require("dotenv").config();
-
 
 
 module.exports.signup = async (req, res) => {
@@ -89,31 +88,7 @@ module.exports.login = async (req, res) => {
     }
 }
 
-const upload = async (data, fileName) => {
-    try {
-        const s3Client = new S3Client({
-            region: "ap-southeast-2",       // replace with your region
-            credentials: {
-                accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-            }
-        });
-        let awsResponse = await s3Client.send(
-            new PutObjectCommand({
-                Bucket: process.env.AWS_BUCKET_NAME,
-                Key: fileName,
-                Body: data,
-                ACL: "public-read"
-            }),
-        );
 
-        return JSON.stringify(awsResponse);
-
-    } catch (error) {
-        console.log(error);
-        return error;
-    }
-}
 module.exports.generateReport = async (req, res) => {
 
 
@@ -143,8 +118,16 @@ module.exports.generateReport = async (req, res) => {
                 December: 12
             };
 
-            startDate = new Date(`${year}-${months[month]}-01 00:00:00`);
-            endDate = new Date(`${year}-${months[month]}-31 23:59:59`);
+            const monthNumber = months[month];
+
+            // Start date
+            startDate = new Date(year, monthNumber - 1, 1, 0, 0, 0);
+
+            // Calculate last day: new Date(year, month, 0) → last day of previous month
+            const lastDay = new Date(year, monthNumber, 0).getDate();
+
+            // End date
+            endDate = new Date(year, monthNumber - 1, lastDay, 23, 59, 59);
         }
         let allExpenses = await Expense.findAll({ attributes: [["amount", "expense"], "description", "category", ["createdAt", "date"]], where: { createdAt: { [Op.between]: [startDate, endDate] }, userid: req.userId } });
         let allExpensesString = JSON.stringify(allExpenses, null, 2);
@@ -153,6 +136,7 @@ module.exports.generateReport = async (req, res) => {
             res.status(200).json({ message: "Expenses are not available ", success: false });
             return;
         }
+        
 
         let data = {
             [year]: {
@@ -160,10 +144,10 @@ module.exports.generateReport = async (req, res) => {
             }
         };
         function toIST(date) {
-            
+
             return new Date(date.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }));
         }
-        
+
         const months = [
             "January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
@@ -173,32 +157,39 @@ module.exports.generateReport = async (req, res) => {
         let aDay = [];
         let aMonth = [];
 
-
+         
         allExpenses.forEach(element => {
 
             const istTimestamp = toIST(element.date);
             element.date = `${istTimestamp.getFullYear()} ${istTimestamp.toLocaleString("en-IN", { month: "short" })} ${istTimestamp.getDate()}`;
-           
+
             let month = months[istTimestamp.getMonth()];
             if (!data[year][month]) {
                 data[year][month] = [];
             }
+           
             if (preDate.getDate() == istTimestamp.getDate()) {
 
                 aDay.push(element);
+                
                 return;
             } else {
-
+                
                 aMonth.push(aDay);
                 preDate = istTimestamp;
                 aDay = [];
                 aDay.push(element);
 
             }
+           
             if (preMonth != month) {
-                data[year][month] = aMonth;
+                
+                data[year][preMonth] = aMonth;
+                
                 aMonth = [];
+                
                 preMonth = month;
+                
             }
 
 
@@ -208,13 +199,14 @@ module.exports.generateReport = async (req, res) => {
 
         aMonth.push(aDay);
         data[year][preMonth] = aMonth;
-         data=JSON.stringify(data);
         
+        data = JSON.stringify(data);
+     
         let url = await upload(data, `${req.userId}/${year}-${month}.txt`);
         if (!url) {
             throw new Error("uload error on s3 AWS");
         }
-        url = `https://${process.env.AWS_BUCKET_NAME}.s3.ap-southeast-2.amazonaws.com/${req.userId}/${year}-${month}.txt`;
+        url = `https://${process.env.AWS_BUCKET_NAME}.s3.ap-south-1.amazonaws.com/${req.userId}/${year}-${month}.txt`;
         let isExits = await Report.findOne({ where: { [Op.and]: [{ "year": year }, { "month": month }, { "user_id": req.userId }] } });
         if (!isExits) {
 
@@ -235,9 +227,9 @@ module.exports.generateReport = async (req, res) => {
 module.exports.downloaded = async (req, res) => {
 
     try {
-        let result=await Report.findAll({where:{"user_id":req.userId},attributes:["url","year","month"]});
+        let result = await Report.findAll({ where: { "user_id": req.userId }, attributes: ["url", "year", "month"] });
 
-        res.status(200).json({message:result,success:true});
+        res.status(200).json({ message: result, success: true });
 
     } catch (error) {
         console.log(error);
