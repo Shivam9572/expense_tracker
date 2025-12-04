@@ -34,6 +34,8 @@ module.exports.orderStatus = async (req, res) => {
       });
       order = order.toJSON();
       await Subcription.create({ amount: order.amount, order_id: order.order_id, user_id: order.user_id },{transaction:t});
+      
+      
 
     }
     if (status == "Pending") {
@@ -55,6 +57,7 @@ module.exports.orderStatus = async (req, res) => {
       });
 
     }
+    await t.commit();
     res.redirect(`${process.env.F_DOMAIN}?alertMessage=${status}`);
 
   } catch (error) {
