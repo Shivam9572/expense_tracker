@@ -1,6 +1,6 @@
 let signupForm=document.getElementById("signupForm");
-const b_domain="http://13.232.126.113:4000";
-const f_domain="http://13.232.126.113:3000";
+let domain="http://13.232.126.113";
+
 signupForm.addEventListener("submit",async(e)=>{
     e.preventDefault();
     
@@ -8,7 +8,7 @@ signupForm.addEventListener("submit",async(e)=>{
     let formObj=Object.fromEntries(formData.entries());
   let err=document.getElementById("error");
     try {
-       let respond= await axios.post(`${b_domain}/user/signup`,formObj);
+       let respond= await axios.post(`${domain}:4000/user/signup`,formObj);
        console.log(respond.data);
        if(!respond.data.success){
           err.textContent=respond.data.message;

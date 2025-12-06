@@ -4,8 +4,8 @@ const alertMessage = urlParams.get('alertMessage');
 if (alertMessage) {
    alert(alertMessage);
 }
-const b_domain="http://13.232.126.113:4000";
-const f_domain="http://13.232.126.113:3000";
+let domain="http://13.232.126.113";
+
 loginForm.addEventListener("submit", async (e) => {
    e.preventDefault();
 
@@ -13,7 +13,7 @@ loginForm.addEventListener("submit", async (e) => {
    let formObj = Object.fromEntries(formData.entries());
    let err = document.getElementById("error");
    try {
-      let respond = await axios.post(`${b_domain}/user/login`, formObj);
+      let respond = await axios.post(`${domain}:4000/user/login`, formObj);
 
       if (!respond.data.success) {
 

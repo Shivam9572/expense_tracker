@@ -1,10 +1,10 @@
  const cashfree = Cashfree({
             mode: "sandbox",
         });
-        const b_domain="http://13.232.126.113:4000";
-         const f_domain="http://13.232.126.113:3000";
+        let domain="http://13.232.126.113";
+         
         document.getElementById("renderBtn").addEventListener("click", async () => {
-            const url = '${b_domain}/payment/order';
+            const url = `${domain}:4000/payment/order`;
 
 
             try {
