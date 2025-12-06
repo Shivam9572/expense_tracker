@@ -33,7 +33,7 @@ app.use("/premium",premiumRouter);
 app.use("/gemini",geminiRouter);
 app.use("/password",passwordRouter);
 
-app.listen("/",(req,res)=>{
+app.get("/",(req,res)=>{
     res.status(200).send("home");
 })
 db.sync({force:false}).then(()=>{
