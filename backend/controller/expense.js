@@ -64,7 +64,7 @@ module.exports.getExpense = async (req, res) => {
 }
 module.exports.deleteExpense = async (req, res) => {
     let id = req.params.id;
-    const t=await seqelize.transaction();
+    const t=await sequelize.transaction();
     try {
        
         let result = await Expense.findByPk(id);
