@@ -34,7 +34,7 @@ app.use("/gemini",geminiRouter);
 app.use("/password",passwordRouter);
 
 db.sync({force:false}).then(()=>{
-    app.listen(process.env.PORT,()=>{
+    app.listen(process.env.PORT,"0.0.0.0",()=>{
     console.log("4000is listean");
    
 });
