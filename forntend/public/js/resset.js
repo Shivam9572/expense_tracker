@@ -1,5 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
+const b_domain="http://13.232.126.113:4000";
+const f_domain="http://13.232.126.113:3000";
 let form = document.getElementById("form");
 form.addEventListener("submit", async (e) => {
    e.preventDefault();
@@ -9,7 +11,7 @@ form.addEventListener("submit", async (e) => {
    let err = document.getElementById("error");
    try {
       
-      let respond = await axios.post("http://localhost:4000/password/resset/"+token, formObj);
+      let respond = await axios.post(`${b_domain}/password/resset/`+token, formObj);
 
       if (!respond.data.success) {
 
@@ -18,7 +20,7 @@ form.addEventListener("submit", async (e) => {
       if (respond.data.success) {
 
 
-         window.location.href = "http://localhost:3000/login/?alertMessage="+respond.data.success;
+         window.location.href = `${f_domain}/login/?alertMessage=`+respond.data.success;
       }
 
 
