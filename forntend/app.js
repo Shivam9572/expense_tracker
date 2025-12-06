@@ -24,6 +24,6 @@ app.use("/password",forgetPassword);
 app.use("/",userRouter);
 app.use("/test",testRouter);
 
-app.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT,"0.0.0.0",()=>{
     console.log("3000 is running");
 })
