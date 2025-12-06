@@ -1,7 +1,7 @@
 async function isPreminum() {
     try {
 
-        let result = await axios.get("http://localhost:4000/user/isPremium", {
+        let result = await axios.get("http://13.232.126.113:4000/user/isPremium", {
             headers: {
                 authorization: sessionStorage.getItem("token")
             }
@@ -284,7 +284,7 @@ async function getAllExpense(parent) {
 
     try {
 
-        let result = await axios.get("http://localhost:4000/premium/allExpense");
+        let result = await axios.get("http://13.232.126.113:4000/premium/allExpense");
 
         for (let i = 0; i < result.data.length; i++) {
             if (result.data[i].total_amount < 1) {
@@ -327,7 +327,7 @@ function dowloadReport(element) {
 let showHistoryBtnEvent = async () => {
 
     try {
-        let result = await axios.get("http://localhost:4000/user/download", {
+        let result = await axios.get("http://13.232.126.113:4000/user/download", {
             headers: { authorization: sessionStorage.getItem("token") }
         });
         let features_content = document.getElementById("features_content");
@@ -413,7 +413,7 @@ let reportBtnEvent = async () => {
             year: year,
             month: month
         }
-        let response = await axios.get("http://localhost:4000/user/gernateReport", {
+        let response = await axios.get("http://13.232.126.113:4000/user/gernateReport", {
 
             headers: { authorization: sessionStorage.token },
             params: bodyData
