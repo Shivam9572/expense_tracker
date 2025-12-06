@@ -26,7 +26,7 @@ limitVal.addEventListener("change", async (e) => {
 })
 //check authentication
 if (!sessionStorage.getItem("token")) {
-    window.location.href = "http://localhost:3000/login";
+    window.location.href = "http://13.232.126.113:3000/login";
 }
 
 //alert for alert message  by using url 
@@ -46,7 +46,7 @@ let delExpense = async (id) => {
 
     try {
 
-        let result = await axios.delete(`http://localhost:4000/expense/${id}`);
+        let result = await axios.delete(`http://13.232.126.113:4000/expense/${id}`);
         if (result.data.success) {
 
             let leader_btn = document.getElementById("leader_board_btn");
@@ -104,7 +104,7 @@ async function getExpenses() {
     try {
         let expenseElement = document.getElementById("expense_list");
         expenseElement.textContent = "Loding....";
-        let result = await axios.get(`http://localhost:4000/expense`, {
+        let result = await axios.get(`$http://13.232.126.113:4000/expense`, {
             params: {
                 page: pageData.currpage,
                 limit: sessionStorage.getItem("limit")
@@ -179,7 +179,7 @@ async function changePage(pageData, pageInfo) {
 let logoutBtn = document.getElementById("logout");
 logoutBtn.addEventListener("click", (e) => {
     sessionStorage.removeItem("token");
-    window.location.href = "http://localhost:3000/login";
+    window.location.href = "http://13.232.126.113:3000/login";
 });
 
 //sumit form for adding a new expense
@@ -191,7 +191,7 @@ addexpense.addEventListener("submit", async (e) => {
     let obj = Object.fromEntries(formData.entries());
     try {
 
-        let result = await axios.post(`http://localhost:4000/expense`, obj, {
+        let result = await axios.post(`http://13.232.126.113:4000/expense`, obj, {
             headers: {
                 authorization: sessionStorage.getItem("token")
             }
@@ -229,7 +229,7 @@ addexpense.addEventListener("submit", async (e) => {
 //show payment page
 let subcription = document.getElementById("subcription");
 subcription.addEventListener("click", (e) => {
-    window.location.href = "http://localhost:3000/payment?token=" + sessionStorage.getItem("token");
+    window.location.href = "http://13.232.126.113:4000/payment?token=" + sessionStorage.getItem("token");
 });
 
 // help ai function 
@@ -242,7 +242,7 @@ alBtn.addEventListener("click", async (e) => {
         if (descriptionValue.length < 1) {
             throw new Error("please enter something");
         }
-        let result = await axios.post("http://localhost:4000/gemini", { content: `${description.value}  suggest category for expense tracker` });
+        let result = await axios.post("http://13.232.126.113:4000/gemini", { content: `${description.value}  suggest category for expense tracker` });
 
         addCategory(result.data.response.words);
     } catch (error) {
