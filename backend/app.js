@@ -33,6 +33,9 @@ app.use("/premium",premiumRouter);
 app.use("/gemini",geminiRouter);
 app.use("/password",passwordRouter);
 
+app.listen("/",(req,res)=>{
+    res.status(200).send("home");
+})
 db.sync({force:false}).then(()=>{
     app.listen(process.env.PORT,"0.0.0.0",()=>{
     console.log("4000is listean");
