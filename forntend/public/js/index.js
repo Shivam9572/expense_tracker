@@ -81,19 +81,18 @@ let delExpense = async (id) => {
 //add expense in expense_list div element 
 function addExpense(details) {
     let expense_list = document.getElementById("expense_list");
-    let li = document.createElement("li");
+    
     let p = document.createElement("p");
     p.textContent = `${details.category}- ₹${details.amount}- ${details.description}`;
     p.style.display = "inline-flex";
-    li.appendChild(p);
-    li.className = "expense";
-    li.id = details.id;
     let delBtn = document.createElement("button");
     delBtn.classList.add("btn", "btn-danger", "mx-2");
     delBtn.textContent = "Delete";
     delBtn.addEventListener("click", (e) => delExpense(details.id));
-    li.appendChild(delBtn);
-    expense_list.appendChild(li);
+    p.appendChild(delBtn);
+    
+
+    expense_list.append(p);
 
 }
 
@@ -138,10 +137,7 @@ getExpenses();
 //change page 
 async function changePage(pageData, pageInfo) {
     let expense_list_div = document.getElementById("expense_list");
-    // let allList = expense_list_div.querySelectorAll("li");
-    // for (let i = 0; i < allList.length; i++) {
-    //     allList[i].remove();
-    // }
+    
 
     if (pageData.items == 0) {
         expense_list_div.innerHTML = "<h2>No any Expense available</h2>";
@@ -149,6 +145,7 @@ async function changePage(pageData, pageInfo) {
         expense_list_div.innerHTML = "";
     }
     for (let i = 0; i < pageInfo.length; i++) {
+        
         addExpense(pageInfo[i]);
     }
     let preBtn = document.getElementById("pre");
@@ -179,6 +176,7 @@ async function changePage(pageData, pageInfo) {
 let logoutBtn = document.getElementById("logout");
 logoutBtn.addEventListener("click", (e) => {
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("name");
     window.location.href = `${domain}:3000/login`;
 });
 
@@ -229,7 +227,7 @@ addexpense.addEventListener("submit", async (e) => {
 //show payment page
 let subcription = document.getElementById("subcription");
 subcription.addEventListener("click", (e) => {
-    window.location.href = `${domain}:4000/payment?token=` + sessionStorage.getItem("token");
+    window.location.href = `${domain}:3000/payment?token=` + sessionStorage.getItem("token");
 });
 
 // help ai function 
@@ -255,15 +253,15 @@ alBtn.addEventListener("click", async (e) => {
 //add category option 
 function addCategory(array) {
     let category = document.getElementById("category");
-    let options = category.options;
-    for (let i = 0; i < options.length; i++) {
-        options[i].remove();
-    }
+    category.innerHTML = "";
+    let option = document.createElement("option");
+        option.textContent ="salary";
+        category.append(option);
     for (let i = 0; i < array.length; i++) {
 
-        let select = document.createElement("option");
-        select.textContent = array[i];
-        category.append(select);
+        let option = document.createElement("option");
+        option.textContent = array[i];
+        category.append(option);
     }
 }
 

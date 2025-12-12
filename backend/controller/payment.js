@@ -4,6 +4,7 @@ const Subcription = require("../models/subscription");
 const Transaction = require("../models/transaction");
 const { createOrder, getPaymentStatus } = require("../services/cashfreeservice");
 const seqelize = require("../utilits/databaseConnection");
+const StatusCodes = require('http-status-codes').StatusCodes;
 
 module.exports.order = async (req, res) => {
   try {
@@ -13,10 +14,10 @@ module.exports.order = async (req, res) => {
       res.send("error->session Id");
       return;
     }
-    res.json({ sessionId: sessionId });
+    res.status(StatusCodes.OK).json({ sessionId: sessionId });
   } catch (error) {
     console.log(error);
-    res.send("error");
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("error");
   }
 }
 module.exports.orderStatus = async (req, res) => {
@@ -24,7 +25,7 @@ module.exports.orderStatus = async (req, res) => {
   try {
     const orderId = req.query.order_id;
     const status = await getPaymentStatus(orderId);
-    console.log(status);
+    
     if (status == "Success") {
       let order = await Transaction.findByPk(orderId);
       await Transaction.update({ status: "success" }, {
@@ -63,6 +64,6 @@ module.exports.orderStatus = async (req, res) => {
   } catch (error) {
     await t.rollback();
     console.log(error);
-    res.send("error");
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("error");
   }
 }

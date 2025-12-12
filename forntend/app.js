@@ -8,7 +8,7 @@ const fs=require("fs");
 
 const userRouter=require("./router/user");
 const forgetPassword=require("./router/forgetPassword");
-const testRouter=require("./router/data");
+
 
 const path = require("path");
 
@@ -22,7 +22,7 @@ app.use(express.static("public"));
 
 app.use("/password",forgetPassword);
 app.use("/",userRouter);
-app.use("/test",testRouter);
+
 
 app.listen(process.env.PORT,"0.0.0.0",()=>{
     console.log("3000 is running");

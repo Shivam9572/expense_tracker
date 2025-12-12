@@ -20,7 +20,7 @@ form.addEventListener("submit", async (e) => {
       if (respond.data.success) {
 
 
-         window.location.href = `${domain}:3000/login/?alertMessage=`+respond.data.success;
+         window.location.href = `${domain}/login/?alertMessage=`+respond.data.success;
       }
 
 

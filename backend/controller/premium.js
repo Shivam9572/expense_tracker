@@ -1,12 +1,13 @@
 
  const User=require("../models/users");
+ const StatusCodes = require('http-status-codes').StatusCodes;
 module.exports.allExpense = async (req, res) => {
     try {
         let result = await User.findAll({attributes:["name","total_amount"],order:[["total_amount","DESC"]]});
         
-        res.send(result);
+        res.status(StatusCodes.OK).send(result);
     } catch (error) {
         console.log(error);
-        res.send({error:error.message});
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({error:error.message});
     }
 }

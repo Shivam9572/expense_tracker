@@ -1,7 +1,8 @@
 const { sendInBlue } = require("../services/sendInBlue");
 const User = require("../models/users");
 const RessetLink = require("../models/ressetLink");
-const seqelize = require("../utilits/databaseConnection");
+
+const StatusCodes = require('http-status-codes').StatusCodes;
 require("dotenv").config();
 
 
@@ -23,18 +24,18 @@ module.exports.forgetPassword = async (req, res) => {
     if (result) {
 
 
-      let response = await RessetLink.create({ id: myUuid, user_id: user.toJSON().id });
+       await RessetLink.create({ id: myUuid, user_id: user.toJSON().id });
 
-      res.send({ "success": "successful sent link on your email" });
+      res.status(StatusCodes.OK).send({ "success": "successful sent link on your email" });
       return;
     }
 
     else {
-      res.send({ "response": "something went worng" });
+      res.status(StatusCodes.SERVICE_UNAVAILABLE).send({ "response": "something went worng" });
     }
   } catch (error) {
     console.log(error);
-    res.send("something went wrong");
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("something went wrong");
   }
 }
 module.exports.ressetPasswprd = async (req, res) => {
@@ -44,7 +45,7 @@ module.exports.ressetPasswprd = async (req, res) => {
 
     let { password, cpassword } = req.body;
     if (password != cpassword) {
-      res.send({ "failed": "password doed not match confirm password" });
+      res.status(StatusCodes.FORBIDDEN).send({ "failed": "password doed not match confirm password" });
       return;
     };
 
@@ -64,14 +65,14 @@ module.exports.ressetPasswprd = async (req, res) => {
     result = await RessetLink.destroy({ where: { id: id } }, { transaction: t });
 
 
-    res.send({ "success": "successful resset password" });
+    res.status(StatusCodes.OK).send({ "success": "successful resset password" });
     t.commit();
     return;
 
   } catch (error) {
     t.rollback();
     console.log(error);
-    res.send({ "failed": "something went wrong" });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ "failed": "something went wrong" });
   }
 }
 
@@ -82,10 +83,10 @@ module.exports.checkLink = async (req, res) => {
     if (result) {
       res.redirect(`${process.env.F_DOMAIN}/password/resset/?token=${result.toJSON().id}`);
     } else {
-      res.send("Link has been expired");
+      res.status(StatusCodes.NO_CONTENT).send("Link has been expired");
     }
   } catch (error) {
     console.log(error);
-    res.send("something went wrong");
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("something went wrong");
   }
 }

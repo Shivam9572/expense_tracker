@@ -186,15 +186,16 @@ let reportGenerate = async (data) => {
                 for (let e = 0; e < month[d].length; e++) {
 
                     let row = document.createElement("tr");
-                    if (month[d][e].income) {
-                        income += month[d][e].income;
+                    
+                    if (month[d][e].category.toLowerCase() == "salary") {
+                        income += month[d][e].expense;
                         row.innerHTML = ` <td>${month[d][e].date}</td>
                                            <td>${month[d][e].description}</td>
                                            <td>${month[d][e].category}</td>
-                                           <td>${month[d][e].income}.00</td>
+                                           <td>${month[d][e].expense}.00</td>
                                           <td></td>`;
                     }
-                    if (month[d][e].expense) {
+                    if ( (month[d][e].category!="salary")&&(month[d][e].expense)) {
                         eAmount += month[d][e].expense;
                         row.innerHTML = ` <td>${month[d][e].date}</td>
                                        <td>${month[d][e].description}</td>
@@ -328,7 +329,7 @@ function dowloadReport(element) {
 let showHistoryBtnEvent = async () => {
 
     try {
-        let result = await axios.get(`${dommain}:4000/user/download`, {
+        let result = await axios.get(`${domain}:4000/user/download`, {
             headers: { authorization: sessionStorage.getItem("token") }
         });
         let features_content = document.getElementById("features_content");
@@ -375,7 +376,7 @@ let showHistoryBtnEvent = async () => {
         features_content.append(div);
 
     } catch (error) {
-        console, log(error);
+        console.log(error);
     }
 
 }

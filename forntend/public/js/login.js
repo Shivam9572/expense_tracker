@@ -1,3 +1,6 @@
+if(sessionStorage.getItem("token")){
+   window.location.href="http://13.232.126.113/";
+}
 let loginForm = document.getElementById("loginForm");
 const urlParams = new URLSearchParams(window.location.search);
 const alertMessage = urlParams.get('alertMessage');
@@ -23,7 +26,7 @@ loginForm.addEventListener("submit", async (e) => {
 
          sessionStorage.setItem("token", respond.data.message);
          sessionStorage.setItem("name",respond.data.name);
-         window.location.href = `${f_domain}/`;
+         window.location.href = `${domain}:3000/`;
       }
 
 

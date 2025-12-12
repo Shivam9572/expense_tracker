@@ -1,10 +1,13 @@
 const jwt=require("jsonwebtoken");
+const StatusCodes = require('http-status-codes').StatusCodes;
+
 require("dotenv").config();
+
 
 module.exports.authorization=(req,res,next)=>{
  
    if(!req.headers.authorization){
-    res.status(505).send({"failed":"unauthorization"});
+    res.status(StatusCodes.UNAUTHORIZED).send({"failed":"unauthorization"});
     return;
    }
     jwt.verify(req.headers.authorization,process.env.JWT_SECRET_KEY,function(err,result){

@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const Report = require("../models/report");
 const { Op } = require("sequelize");
 const { upload } = require("../services/s3");
+const { StatusCodes } = require("http-status-codes");
 require("dotenv").config();
 
 
@@ -14,7 +15,7 @@ module.exports.signup = async (req, res) => {
 
     let { name, email, password, cpassword } = req.body;
     if (!email || !name || !password || !cpassword) {
-        res.send({ success: false, message: "all fields are requiered" });
+        res.status(StatusCodes("FORBIDDEN")).send({ success: false, message: "all fields are requiered" });
         return;
     }
     try {
@@ -32,12 +33,12 @@ module.exports.signup = async (req, res) => {
         newUser = newUser.toJSON();
         let token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET_KEY);
 
-        res.send({ success: true, message: token, name: newUser.name });
+        res.status(StatusCodes.CREATED).send({ success: true, message: token, name: newUser.name });
 
 
     } catch (error) {
         console.log(error);
-        res.status(404).send({ "failed": error.message });
+        res.status(500).send({ "failed": error.message });
     }
 }
 module.exports.isPremium = async (req, res) => {
@@ -50,7 +51,7 @@ module.exports.isPremium = async (req, res) => {
         res.json({ isPremium: false });
     } catch (error) {
         console.log(error);
-        res.send(error.message);
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(error.message);
     }
 }
 
