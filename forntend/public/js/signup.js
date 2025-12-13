@@ -18,7 +18,7 @@ signupForm.addEventListener("submit",async(e)=>{
        if(respond.data.success){
          sessionStorage.setItem("token",respond.data.message);
          sessionStorage.setItem("name",respond.data.name);
-          window.location.href=`${domain}/`;
+          window.location.href=`${domain}:3000/`;
        }
        
        

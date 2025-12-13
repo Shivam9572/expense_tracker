@@ -1,5 +1,5 @@
 
-  require("dotenv").config();
+
 const express=require("express");
 const app=express();
 const compression=require("compression");
@@ -24,6 +24,6 @@ app.use("/password",forgetPassword);
 app.use("/",userRouter);
 
 
-app.listen(process.env.PORT,"0.0.0.0",()=>{
+app.listen(3000,"0.0.0.0",()=>{
     console.log("3000 is running");
 })
