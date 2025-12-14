@@ -3,6 +3,42 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy"
+content="
+default-src 'self';
+
+script-src
+  'self'
+  https://cdn.jsdelivr.net
+  https://sdk.cashfree.com
+  https://cdnjs.cloudflare.com;
+
+style-src
+  'self'
+  https://cdn.jsdelivr.net
+  https://cdnjs.cloudflare.com;
+
+connect-src
+  'self'
+  https://cdn.jsdelivr.net
+  https://api.cashfree.com
+  https://sandbox.cashfree.com
+  https://expense-tracker957233.s3.ap-south-1.amazonaws.com;
+
+img-src
+  'self'
+  data:
+  https://expense-tracker957233.s3.ap-south-1.amazonaws.com;
+
+font-src
+  'self'
+  https://cdn.jsdelivr.net
+  https://cdnjs.cloudflare.com;
+
+frame-src
+  https://sdk.cashfree.com;
+">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/index.css">

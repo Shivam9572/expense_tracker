@@ -22,7 +22,7 @@ const createOrder = async (userId, amount, phone) => {
 
             },
             "order_meta": {
-                "return_url": `${process.env.B_DOMAIN}/payment/payment-status?order_id=` + myUuid,
+                "return_url": `${process.env.domain}/api/payment/payment-status?order_id=` + myUuid,
                 "payment_methods": "cc,dc,upi"
             },
        

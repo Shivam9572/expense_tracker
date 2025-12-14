@@ -81,7 +81,7 @@ module.exports.checkLink = async (req, res) => {
   try {
     let result = await RessetLink.findByPk(uuid);
     if (result) {
-      res.redirect(`${process.env.F_DOMAIN}/password/resset/?token=${result.toJSON().id}`);
+      res.redirect(`${process.env.DOMAIN}/resetPassword/?token=${result.toJSON().id}`);
     } else {
       res.status(StatusCodes.NO_CONTENT).send("Link has been expired");
     }

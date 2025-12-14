@@ -59,7 +59,7 @@ module.exports.orderStatus = async (req, res) => {
 
     }
     await t.commit();
-    res.redirect(`${process.env.F_DOMAIN}?alertMessage=${status}`);
+    res.redirect(`${process.env.DOMAIN}?alertMessage=${status}`);
 
   } catch (error) {
     await t.rollback();

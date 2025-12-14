@@ -4,7 +4,7 @@
      
          
         document.getElementById("renderBtn").addEventListener("click", async () => {
-            const url = `/api/payment/order`;
+            const url = `api/payment/order`;
 
 
             try {
@@ -20,10 +20,7 @@
                         authorization: token
                     }
                 });
-                 if(response.data.sessionId){
-                    console.log(response.data.sessionId);
-                    
-                 }
+                
                 
                 let checkoutOptions = {
                     paymentSessionId:response.data.sessionId,

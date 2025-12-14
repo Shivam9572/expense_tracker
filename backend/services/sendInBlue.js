@@ -18,7 +18,7 @@ module.exports.sendInBlue = async (receiverEmail,uuid)=>{
                 email:receiverEmail
             }
         ];
-        let href=`${process.env.B_DOMAIN}/password/resset/${uuid}`;
+        let href=`${process.env.DOMAIN}/api/password/resset/${uuid}`;
         let result=await tranEmailApi.sendTransacEmail({
             sender,
             to:receivers,

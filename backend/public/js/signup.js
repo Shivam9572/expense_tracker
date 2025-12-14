@@ -8,7 +8,7 @@ signupForm.addEventListener("submit",async(e)=>{
     let formObj=Object.fromEntries(formData.entries());
     let err=document.getElementById("error");
     try {
-       let respond= await axios.post(`/api/user/signup`,formObj);
+       let respond= await axios.post(`api/user/signup`,formObj);
        
        if(!respond.data.success){
           setInterval(()=>{
@@ -18,7 +18,7 @@ signupForm.addEventListener("submit",async(e)=>{
        if(respond.data.success){
          sessionStorage.setItem("token",respond.data.message);
          sessionStorage.setItem("name",respond.data.name);
-          window.location.href=`views/`;
+          window.location.href=`/`;
        }
        
        

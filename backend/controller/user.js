@@ -3,12 +3,14 @@ const Subcription = require("../models/subscription");
 const Expense = require("../models/expense");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const path = require("path");
 const Report = require("../models/report");
 const { Op } = require("sequelize");
 const { upload } = require("../services/s3");
 const { StatusCodes } = require("http-status-codes");
 require("dotenv").config();
+
+
 
 
 module.exports.signup = async (req, res) => {

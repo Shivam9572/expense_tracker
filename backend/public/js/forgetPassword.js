@@ -7,7 +7,7 @@ form.addEventListener("submit",async(e)=>{
   let err=document.getElementById("error");
     try {
         let email=document.getElementById("email").value;
-       let respond= await axios.post(`/api/password/forget`,{email:email});
+       let respond= await axios.post(`api/password/forget`,{email:email});
      
        if(!respond.data.success){
          
@@ -16,7 +16,7 @@ form.addEventListener("submit",async(e)=>{
        if(respond.data.success){
          
           
-          window.location.href=`views/login`;
+          window.location.href=`/login`;
        }
        
        
