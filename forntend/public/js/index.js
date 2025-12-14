@@ -26,7 +26,7 @@ limitVal.addEventListener("change", async (e) => {
 })
 //check authentication
 if (!sessionStorage.getItem("token")) {
-    window.location.href = `/login`;
+    window.location.href = `/views/login.html`;
 }
 
 //alert for alert message  by using url 

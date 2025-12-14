@@ -16,7 +16,7 @@ form.addEventListener("submit",async(e)=>{
        if(respond.data.success){
          
           
-          window.location.href=`/login`;
+          window.location.href=`views/login`;
        }
        
        

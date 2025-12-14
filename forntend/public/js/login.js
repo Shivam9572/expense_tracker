@@ -1,5 +1,5 @@
 if(sessionStorage.getItem("token")){
-   window.location.href="/";
+   window.location.href="views/";
 }
 let loginForm = document.getElementById("loginForm");
 const urlParams = new URLSearchParams(window.location.search);
@@ -26,7 +26,7 @@ loginForm.addEventListener("submit", async (e) => {
 
          sessionStorage.setItem("token", respond.data.message);
          sessionStorage.setItem("name",respond.data.name);
-         window.location.href = `/`;
+         window.location.href = `views/`;
       }
 
 
