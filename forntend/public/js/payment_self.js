@@ -4,7 +4,7 @@
         let domain="http://13.232.126.113";
          
         document.getElementById("renderBtn").addEventListener("click", async () => {
-            const url = `${domain}:4000/payment/order`;
+            const url = `${domain}/api/payment/order`;
 
 
             try {

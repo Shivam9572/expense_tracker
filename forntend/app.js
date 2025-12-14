@@ -7,7 +7,7 @@ const morgan=require("morgan");
 const fs=require("fs");
 
 const userRouter=require("./router/user");
-const forgetPassword=require("./router/forgetPassword");
+
 
 
 const path = require("path");
@@ -20,7 +20,7 @@ app.set(path.join(__dirname,"views"));
 app.use(express.static("public"));
 
 
-app.use("/password",forgetPassword);
+
 app.use("/",userRouter);
 
 

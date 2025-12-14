@@ -11,7 +11,7 @@ form.addEventListener("submit", async (e) => {
    let err = document.getElementById("error");
    try {
       
-      let respond = await axios.post(`${domain}:4000/password/resset/`+token, formObj);
+      let respond = await axios.post(`${domain}/api/password/resset/`+token, formObj);
 
       if (!respond.data.success) {
 
@@ -20,7 +20,7 @@ form.addEventListener("submit", async (e) => {
       if (respond.data.success) {
 
 
-         window.location.href = `${domain}/login/?alertMessage=`+respond.data.success;
+         window.location.href = `/login/?alertMessage=`+respond.data.success;
       }
 
 

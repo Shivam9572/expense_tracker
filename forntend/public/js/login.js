@@ -1,5 +1,5 @@
 if(sessionStorage.getItem("token")){
-   window.location.href="http://13.232.126.113/";
+   window.location.href="/";
 }
 let loginForm = document.getElementById("loginForm");
 const urlParams = new URLSearchParams(window.location.search);
@@ -16,7 +16,7 @@ loginForm.addEventListener("submit", async (e) => {
    let formObj = Object.fromEntries(formData.entries());
    let err = document.getElementById("error");
    try {
-      let respond = await axios.post(`${domain}:4000/user/login`, formObj);
+      let respond = await axios.post(`${domain}/api/user/login`, formObj);
 
       if (!respond.data.success) {
 
@@ -26,7 +26,7 @@ loginForm.addEventListener("submit", async (e) => {
 
          sessionStorage.setItem("token", respond.data.message);
          sessionStorage.setItem("name",respond.data.name);
-         window.location.href = `${domain}:3000/`;
+         window.location.href = `${domain}/`;
       }
 
 
