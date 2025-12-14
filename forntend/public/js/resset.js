@@ -1,6 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
-let domain="http://13.232.126.113";
+
 
 let form = document.getElementById("form");
 form.addEventListener("submit", async (e) => {
@@ -11,7 +11,7 @@ form.addEventListener("submit", async (e) => {
    let err = document.getElementById("error");
    try {
       
-      let respond = await axios.post(`${domain}/api/password/resset/`+token, formObj);
+      let respond = await axios.post(`/api/password/resset/`+token, formObj);
 
       if (!respond.data.success) {
 

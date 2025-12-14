@@ -26,12 +26,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cors());
-app.use("/user",userRouter);
-app.use("/expense",expenseRouter);
-app.use("/payment",paymentRouter);
-app.use("/premium",premiumRouter);
-app.use("/gemini",geminiRouter);
-app.use("/password",passwordRouter);
+app.use("api/user",userRouter);
+app.use("api/expense",expenseRouter);
+app.use("api/payment",paymentRouter);
+app.use("api/premium",premiumRouter);
+app.use("api/gemini",geminiRouter);
+app.use("api/password",passwordRouter);
 
 app.get("/",(req,res)=>{
     res.status(200).send("home");

@@ -2,7 +2,7 @@
 async function isPreminum() {
     try {
 
-        let result = await axios.get(`${domain}/api/user/isPremium`, {
+        let result = await axios.get(`/api/user/isPremium`, {
             headers: {
                 authorization: sessionStorage.getItem("token")
             }
@@ -286,7 +286,7 @@ async function getAllExpense(parent) {
 
     try {
 
-        let result = await axios.get(`${domain}/api/premium/allExpense`);
+        let result = await axios.get(`/api/premium/allExpense`);
 
         for (let i = 0; i < result.data.length; i++) {
             if (result.data[i].total_amount < 1) {
@@ -329,7 +329,7 @@ function dowloadReport(element) {
 let showHistoryBtnEvent = async () => {
 
     try {
-        let result = await axios.get(`${domain}/api/user/download`, {
+        let result = await axios.get(`/api/user/download`, {
             headers: { authorization: sessionStorage.getItem("token") }
         });
         let features_content = document.getElementById("features_content");

@@ -1,5 +1,5 @@
 
-let domain="http://13.232.126.113";
+
 let pageData = {
     currpage: 0,
     prePage: false,
@@ -46,7 +46,7 @@ let delExpense = async (id) => {
 
     try {
 
-        let result = await axios.delete(`${domain}/api/expense/${id}`);
+        let result = await axios.delete(`/api/expense/${id}`);
         if (result.data.success) {
 
             let leader_btn = document.getElementById("leader_board_btn");
@@ -103,7 +103,7 @@ async function getExpenses() {
     try {
         let expenseElement = document.getElementById("expense_list");
         expenseElement.textContent = "Loding....";
-        let result = await axios.get(`${domain}/api/expense`, {
+        let result = await axios.get(`/api/expense`, {
             params: {
                 page: pageData.currpage,
                 limit: sessionStorage.getItem("limit")
@@ -189,7 +189,7 @@ addexpense.addEventListener("submit", async (e) => {
     let obj = Object.fromEntries(formData.entries());
     try {
 
-        let result = await axios.post(`${domain}/api/expense`, obj, {
+        let result = await axios.post(`/api/expense`, obj, {
             headers: {
                 authorization: sessionStorage.getItem("token")
             }
@@ -240,7 +240,7 @@ alBtn.addEventListener("click", async (e) => {
         if (descriptionValue.length < 1) {
             throw new Error("please enter something");
         }
-        let result = await axios.post(`${domain}/api/gemini`, { content: `${descriptionValue}  suggest category for expense tracker` });
+        let result = await axios.post(`/api/gemini`, { content: `${descriptionValue}  suggest category for expense tracker` });
 
         addCategory(result.data.response.words);
     } catch (error) {

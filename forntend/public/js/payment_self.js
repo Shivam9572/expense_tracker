@@ -1,10 +1,10 @@
  const cashfree = Cashfree({
             mode: "sandbox",
         });
-        let domain="http://13.232.126.113";
+     
          
         document.getElementById("renderBtn").addEventListener("click", async () => {
-            const url = `${domain}/api/payment/order`;
+            const url = `/api/payment/order`;
 
 
             try {

@@ -1,5 +1,5 @@
 let signupForm=document.getElementById("signupForm");
-let domain="http://13.232.126.113";
+
 
 signupForm.addEventListener("submit",async(e)=>{
     e.preventDefault();
@@ -8,7 +8,7 @@ signupForm.addEventListener("submit",async(e)=>{
     let formObj=Object.fromEntries(formData.entries());
     let err=document.getElementById("error");
     try {
-       let respond= await axios.post(`${domain}/api/user/signup`,formObj);
+       let respond= await axios.post(`/api/user/signup`,formObj);
        
        if(!respond.data.success){
           setInterval(()=>{

@@ -7,7 +7,7 @@ const alertMessage = urlParams.get('alertMessage');
 if (alertMessage) {
    alert(alertMessage);
 }
-let domain="http://13.232.126.113";
+
 
 loginForm.addEventListener("submit", async (e) => {
    e.preventDefault();
@@ -16,7 +16,7 @@ loginForm.addEventListener("submit", async (e) => {
    let formObj = Object.fromEntries(formData.entries());
    let err = document.getElementById("error");
    try {
-      let respond = await axios.post(`${domain}/api/user/login`, formObj);
+      let respond = await axios.post(`/api/user/login`, formObj);
 
       if (!respond.data.success) {
 
@@ -26,7 +26,7 @@ loginForm.addEventListener("submit", async (e) => {
 
          sessionStorage.setItem("token", respond.data.message);
          sessionStorage.setItem("name",respond.data.name);
-         window.location.href = `${domain}/`;
+         window.location.href = `/`;
       }
 
 

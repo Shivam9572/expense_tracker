@@ -1,4 +1,4 @@
-let domain="http://13.232.126.113";
+
 let form=document.getElementById("form");
 form.addEventListener("submit",async(e)=>{
     e.preventDefault();
@@ -7,7 +7,7 @@ form.addEventListener("submit",async(e)=>{
   let err=document.getElementById("error");
     try {
         let email=document.getElementById("email").value;
-       let respond= await axios.post(`${domain}/api/password/forget`,{email:email});
+       let respond= await axios.post(`/api/password/forget`,{email:email});
      
        if(!respond.data.success){
          
